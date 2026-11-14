@@ -1,0 +1,38 @@
+@startuml
+title Automotive BMS - System Context
+
+skinparam componentStyle rectangle
+
+actor Driver
+actor Technician
+
+rectangle "Vehicle System" {
+    component "Vehicle Control Unit\n(VCU)" as VCU
+    component "On-Board Charger\n(OBC)" as OBC
+    component "Thermal Management\nController" as TMS
+}
+
+rectangle "Battery Management System" {
+    component "Master BMS" as MBMS
+    component "Slave BMS" as SBMS
+}
+
+rectangle "High Voltage Battery Pack" {
+    component "Battery Cells" as Cells
+    component "Sensors" as Sensors
+    component "Contactors" as Contactors
+}
+
+Driver --> VCU
+Technician --> MBMS
+
+VCU <--> MBMS : CAN / CAN-FD
+OBC <--> MBMS : Charging Limits
+TMS <--> MBMS : Thermal Requests
+
+SBMS --> MBMS : Cell Voltage\nTemperature
+Sensors --> MBMS : Current / Temperature
+MBMS --> Contactors : Control Commands
+Cells --> SBMS : Cell Measurements
+
+@enduml
