@@ -1,0 +1,52 @@
+@startuml
+title BMS Functional Architecture
+
+top to bottom direction
+skinparam componentStyle rectangle
+
+rectangle "F0: Manage High Voltage Battery System" {
+
+  rectangle "F1: Battery Monitoring" {
+    component "Measure Cell Voltage" as F11
+    component "Measure Pack Current" as F12
+    component "Measure Temperature" as F13
+  }
+
+  rectangle "F2: Battery State Estimation" {
+    component "Calculate SoC" as F21
+    component "Calculate SoH" as F22
+    component "Calculate SoP" as F23
+  }
+
+  rectangle "F3: Energy Management" {
+    component "Calculate Charge Limits" as F31
+    component "Calculate Discharge Limits" as F32
+  }
+
+  rectangle "F4: Thermal Management" {
+    component "Monitor Thermal Limits" as F41
+    component "Request Cooling/Heating" as F42
+  }
+
+  rectangle "F5: Cell Balancing" {
+    component "Determine Balancing Need" as F51
+    component "Execute Cell Balancing" as F52
+  }
+
+  rectangle "F6: HV Management" {
+    component "Control Pre-charge" as F61
+    component "Control Contactors" as F62
+  }
+
+  rectangle "F7: Fault Management" {
+    component "Detect Faults" as F71
+    component "Execute Safety Reaction" as F72
+  }
+
+  rectangle "F8: Communication" {
+    component "Communicate with VCU" as F81
+    component "Communicate with OBC" as F82
+  }
+}
+
+@enduml

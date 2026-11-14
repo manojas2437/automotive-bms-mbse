@@ -1,0 +1,35 @@
+@startuml
+title BMS Startup and Initialization
+
+start
+
+:Power ON;
+:Initialize BMS hardware and software;
+:Perform BMS self-diagnostics;
+:Read cell voltages;
+:Read cell temperatures;
+:Read pack current;
+
+:Validate sensor signals;
+
+if (Sensor signals valid?) then (Yes)
+  :Check HV interlock;
+  if (HV interlock valid?) then (Yes)
+    :Check safety conditions;
+    if (Safety conditions satisfied?) then (Yes)
+      :Enter STANDBY state;
+    else (No)
+      :Enter FAULT state;
+      :Report diagnostic information;
+    endif
+  else (No)
+    :Inhibit HV activation;
+    :Report HVIL fault;
+  endif
+else (No)
+  :Inhibit HV activation;
+  :Report sensor fault;
+endif
+
+stop
+@enduml

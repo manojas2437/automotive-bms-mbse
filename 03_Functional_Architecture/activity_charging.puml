@@ -1,0 +1,32 @@
+
+@startuml
+title BMS Charging Management
+
+start
+
+:Receive charging request from VCU/OBC;
+:Acquire battery measurements;
+:Calculate SoC and SoP;
+:Check voltage and temperature limits;
+
+if (Battery conditions valid?) then (Yes)
+
+  :Calculate maximum charging current;
+  :Calculate maximum charging voltage;
+  :Transmit charging limits to OBC;
+  :Monitor charging process;
+
+  if (Charging limit exceeded?) then (Yes)
+    :Reduce charging limit or stop charging;
+    :Report fault if required;
+  else (No)
+    :Continue charging;
+  endif
+
+else (No)
+  :Reject or inhibit charging;
+  :Report diagnostic fault;
+endif
+
+stop
+@enduml

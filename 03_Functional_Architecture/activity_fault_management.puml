@@ -1,0 +1,31 @@
+
+@startuml
+title BMS Fault Detection and Management
+
+start
+
+:Monitor battery parameters;
+:Evaluate diagnostic conditions;
+
+if (Fault detected?) then (Yes)
+
+  :Identify fault category;
+  :Determine fault severity;
+  :Store diagnostic trouble code;
+  :Notify VCU;
+
+  if (Critical safety fault?) then (Yes)
+    :Inhibit charging/discharging;
+    :Initiate defined safety reaction;
+    :Control HV disconnection if required;
+  else (No)
+    :Apply operating limitation;
+    :Continue monitoring;
+  endif
+
+else (No)
+  :Continue normal operation;
+endif
+
+stop
+@enduml
