@@ -1,0 +1,16 @@
+TSR_ID,Related_FSR,Technical_Requirement,Allocated_Component,Domain,Verification
+TSR-001,FSR-001,Acquire individual cell voltages across all 96 series cells using dedicated differential ADC channels with internal reference diagnostics.,Cell Monitoring IC,Hardware,Test
+TSR-002,FSR-005,Verify integrity of cell voltage measurement frames using CRC validation, alive counters, and open-wire detection.,Cell Monitoring IC / Master MCU,HW/SW,Test
+TSR-003,FSR-002,Implement redundant overvoltage diagnostic evaluation comparing primary ADC readings against secondary hardware/software threshold comparators.,Master MCU,Software,Test
+TSR-004,FSR-003,Command zero charging current limit over CAN and assert hardware contactor disable path upon confirmed overvoltage condition.,Master MCU / Diagnostic Manager,SW/HW,Test
+TSR-005,FSR-004,Transmit confirmed cell overvoltage fault flags with End-to-End (E2E) CRC and alive-counter protection to the VCU.,Communication Interface,SW/HW,Test
+TSR-006,FSR-006,Acquire battery module temperatures via NTC thermistors with pull-up/pull-down diagnostic bias to detect short-to-ground and open-circuit faults.,Temperature Sensors / Cell Monitoring IC,Hardware,Test
+TSR-007,FSR-007,Evaluate cell temperatures against warning and critical thresholds, issue thermal derating limits, and trigger HV isolation on critical overtemperature.,Diagnostic Manager / Master MCU,Software,Test
+TSR-008,FSR-008,Monitor physical contactor state via auxiliary mirror contacts and HV bus voltage differential sensing to detect unintended contactor opening.,Contactor Feedback,Hardware,Test
+TSR-009,FSR-009,Implement dual-channel (high-side and low-side) contactor coil control requiring independent enable signals from Master MCU and safety monitor to prevent spurious opening or closing.,Contactor Driver,Hardware,Analysis/Test
+TSR-010,FSR-010,Verify HVIL continuity loop integrity and VCU HV-enable message E2E validity before permitting contactor driver activation.,Master MCU / Contactor Driver,SW/HW,Test
+TSR-011,FSR-011,Perform active contactor weld check during startup and shutdown by measuring voltage across each open contactor pole independently.,Contactor Feedback / Master MCU,HW/SW,Test
+TSR-012,FSR-012,Acquire bidirectional pack current and validate measurement plausibility against summed cell voltage dynamics and redundant sensing channels.,Current Sensor / Master MCU,HW/SW,Test
+TSR-013,FSR-013,Compute dynamic charge and discharge current limits from validated cell voltage, temperature, and SoC inputs, and trigger safe-state isolation if measured current exceeds limits.,Master MCU / Diagnostic Manager,Software,Test
+TSR-014,FSR-002,Supervise Master MCU program flow and task execution timing using an external window watchdog capable of independently disabling the contactor driver safe-state path.,Watchdog,Hardware,Test
+TSR-015,FSR-002,Execute periodic RAM/Flash ECC checks, clock monitoring, and core self-tests (LBIST/MBIST) on the Master MCU to detect latent hardware faults.,Master MCU,HW/SW,Analysis/Test

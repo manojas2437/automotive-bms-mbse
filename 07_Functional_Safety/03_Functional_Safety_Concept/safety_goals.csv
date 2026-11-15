@@ -1,0 +1,6 @@
+Safety_Goal_ID,Description,Related_Hazard,ASIL,Status
+SG-001,Prevent battery operation beyond defined cell voltage safety limits,HAZ-001,TBD,Candidate
+SG-002,Prevent unsafe battery operation due to excessive temperature,HAZ-002,TBD,Candidate
+SG-003,Prevent unintended HV disconnection during vehicle operation,HAZ-003,TBD,Candidate
+SG-004,Prevent unintended energization of the HV system,HAZ-004,TBD,Candidate
+SG-005,Prevent battery charging or discharging beyond permitted operating limits,HAZ-005,TBD,Candidate

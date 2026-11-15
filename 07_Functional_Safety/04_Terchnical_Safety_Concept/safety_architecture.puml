@@ -1,0 +1,54 @@
+@startuml
+title BMS Technical Safety Architecture
+
+top to bottom direction
+skinparam componentStyle rectangle
+skinparam linetype ortho
+
+package "Measurement Layer" #F0F7FF {
+  component "Cell Monitoring IC\n(96ch ADC, Open-Wire,\nHW OV Comparator)" as CMU
+  component "Temperature Sensors\n(NTC + Diagnostic Bias)" as TEMP
+  component "Current Sensor\n(Redundant / Plausibility)" as CURR
+  component "Contactor Feedback\n(HV Sense & Aux Contacts)" as FB
+}
+
+package "Processing & Supervision Layer" #E8F5E9 {
+  component "Master MCU\n(Safety SW, E2E, ECC,\nProgram Flow Monitor)" as MCU
+  component "External Watchdog\n(Window Supervision &\nIndependent Safe-State Pin)" as WDG
+  component "Diagnostic Manager\n(Fault Debounce, DTCs,\nSafe-State Arbitration)" as DIAG
+}
+
+package "Actuation & Isolation Layer" #FFF8E6 {
+  component "Contactor Driver\n(High-Side / Low-Side\nDual-Channel + HVIL Gate)" as DRV
+  component "HV Contactors\n(Main+, Main-, Pre-charge)" as CONT
+  component "Thermal Control Interface\n(Cooling / Heating Req)" as THERM
+}
+
+package "Vehicle Interface" #F5F5F5 {
+  component "VCU\n(E2E Protected CAN)" as VCU
+  component "OBC\n(E2E Protected CAN)" as OBC
+}
+
+' Measurement to Processing
+CMU --> MCU : Cell Voltage & CRC\n(isoSPI)
+TEMP --> MCU : Temperature Signals
+CURR --> MCU : Pack Current
+FB --> MCU : Actual Contactor State
+
+' Supervision & Safety Reaction Paths
+WDG <--> MCU : Challenge / Window Trigger
+WDG --> DRV : Independent HW Disable\n(SAFE_STATE_N)
+MCU --> DIAG : Sensor & Plausibility Data
+DIAG --> MCU : Derating & Fault Status
+DIAG --> DRV : Safe-State Open Command
+
+' Actuation
+MCU --> DRV : Contactor Control\n(HS / LS Enable)
+DRV --> CONT : Coil Drive
+
+' Vehicle Interfaces
+MCU --> THERM : Thermal Request
+MCU <--> VCU : Battery Status & HV Req
+MCU <--> OBC : Charge Limits
+
+@enduml

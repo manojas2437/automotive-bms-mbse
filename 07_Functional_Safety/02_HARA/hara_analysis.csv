@@ -1,0 +1,6 @@
+Hazard_ID,Hazardous_Event,Operating_Mode,Malfunction,Severity,Exposure,Controllability,ASIL,Justification
+HAZ-001,Cell overvoltage during charging,Charging,Overvoltage detection failure,TBD,TBD,TBD,TBD,Requires vehicle-level HARA
+HAZ-002,Battery thermal event during driving,Driving,Temperature monitoring failure,TBD,TBD,TBD,TBD,Requires vehicle-level HARA
+HAZ-003,Unexpected loss of propulsion,Driving,Unintended contactor opening,TBD,TBD,TBD,TBD,Requires vehicle-level HARA
+HAZ-004,Unexpected HV energization,Service,Unintended contactor closure,TBD,TBD,TBD,TBD,Requires vehicle-level HARA
+HAZ-005,Unsafe charging current,Charging,Incorrect current limitation,TBD,TBD,TBD,TBD,Requires vehicle-level HARA

@@ -1,0 +1,65 @@
+@startuml
+title BMS Functional Safety Concept (FSC) Architecture
+
+top to bottom direction
+skinparam componentStyle rectangle
+skinparam linetype ortho
+
+rectangle "Candidate Safety Goals (SG)" #FFF8E6 {
+  component "SG-001\nPrevent Cell Voltage\nLimit Violation" as SG1
+  component "SG-002\nPrevent Excessive\nBattery Temperature" as SG2
+  component "SG-003\nPrevent Unintended\nHV Disconnection" as SG3
+  component "SG-004\nPrevent Unintended\nHV Energization" as SG4
+  component "SG-005\nPrevent Current Limit\nViolation" as SG5
+}
+
+rectangle "Functional Safety Requirements (FSR)" #F0F7FF {
+  component "FSR-001 / FSR-005\nCell Voltage & Validity\nMonitoring" as FSR_V
+  component "FSR-002 / FSR-004\nOvervoltage Detection\n& VCU Notification" as FSR_OV
+  component "FSR-003\nInhibit Charging\non Overvoltage" as FSR_CHG_INH
+  component "FSR-006\nBattery Temperature\nMonitoring" as FSR_T
+  component "FSR-007\nThermal Safety\nReaction" as FSR_OT
+  component "FSR-008 / FSR-009\nContactor Feedback &\nSpurious Open Prevention" as FSR_CONT_OPEN
+  component "FSR-010 / FSR-011\nHV Activation Validation &\nWeld Detection" as FSR_HV_ACT
+  component "FSR-012 / FSR-013\nPack Current Monitoring &\nDynamic Current Limiting" as FSR_CURR
+}
+
+rectangle "BMS Logical Safety Functions" #E8F5E9 {
+  component "Battery Monitoring\n(BMS-F-004)" as FN_MON
+  component "Thermal Monitoring\n(BMS-F-004)" as FN_THERM
+  component "Fault Management\n(BMS-F-007)" as FN_FAULT
+  component "Energy Management\n(BMS-F-003)" as FN_ENERGY
+  component "HV Management\n(BMS-F-006)" as FN_HV
+  component "Communication Manager\n(BMS-F-008)" as FN_COMM
+}
+
+' Safety Goals to FSRs
+SG1 --> FSR_V
+SG1 --> FSR_OV
+SG1 --> FSR_CHG_INH
+
+SG2 --> FSR_T
+SG2 --> FSR_OT
+
+SG3 --> FSR_CONT_OPEN
+
+SG4 --> FSR_HV_ACT
+
+SG5 --> FSR_CURR
+
+' FSRs to BMS Safety Functions
+FSR_V --> FN_MON
+FSR_OV --> FN_FAULT
+FSR_OV --> FN_COMM
+FSR_CHG_INH --> FN_ENERGY
+
+FSR_T --> FN_THERM
+FSR_OT --> FN_FAULT
+
+FSR_CONT_OPEN --> FN_HV
+FSR_HV_ACT --> FN_HV
+
+FSR_CURR --> FN_MON
+FSR_CURR --> FN_ENERGY
+
+@enduml

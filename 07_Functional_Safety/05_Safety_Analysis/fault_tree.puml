@@ -1,0 +1,52 @@
+@startuml
+title BMS Preliminary Fault Tree - Undetected Overvoltage (SG-001)
+
+top to bottom direction
+skinparam componentStyle rectangle
+skinparam linetype ortho
+
+rectangle "TOP EVENT:\nUnsafe battery operation due to\nundetected overvoltage" as TOP #FFEBEE
+
+rectangle "Cell Voltage Measurement Failure\n(Primary & Secondary Acquisition)" as F1 #FFF8E6
+rectangle "Overvoltage Diagnostic Failure\n(Threshold & Plausibility Logic)" as F2 #FFF8E6
+rectangle "Charging Inhibition Failure\n(Power Limit & Contactor Open)" as F3 #FFF8E6
+rectangle "Fault Reaction / Comm Failure\n(VCU / OBC Notification & Safe State)" as F4 #FFF8E6
+
+' Preliminary contributor sub-branches
+rectangle "Cell Monitoring IC\nADC Stuck / Drift" as F1_1 #F5F5F5
+rectangle "Sense Wire Open /\nHigh Resistance" as F1_2 #F5F5F5
+
+rectangle "Master MCU SW\nThreshold Check Hang" as F2_1 #F5F5F5
+rectangle "AFE HW Comparator\nLatent Failure" as F2_2 #F5F5F5
+
+rectangle "Contactor Driver\nFails to Open" as F3_1 #F5F5F5
+rectangle "Main Contactor\nWelded Closed" as F3_2 #F5F5F5
+
+rectangle "CAN Bus-Off / E2E\nMessage Loss" as F4_1 #F5F5F5
+rectangle "OBC Ignores Zero\nCharge Limit" as F4_2 #F5F5F5
+
+' Top-level relationships (preliminary contributor links)
+TOP -- F1
+TOP -- F2
+TOP -- F3
+TOP -- F4
+
+F1 -- F1_1
+F1 -- F1_2
+
+F2 -- F2_1
+F2 -- F2_2
+
+F3 -- F3_1
+F3 -- F3_2
+
+F4 -- F4_1
+F4 -- F4_2
+
+note bottom of TOP
+  Preliminary Fault Contributor Diagram (ISO 26262-9).
+  Formal FTA shall replace generic links with explicit AND/OR gates
+  and evaluate Common-Cause Failures (CCF) across redundant paths.
+end note
+
+@enduml
