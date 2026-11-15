@@ -1,0 +1,21 @@
+Requirement ID,Requirement description,Source,Parent requirement,Allocated function,Allocated component,Safety relevance,Verification method,Verification status
+BMS-REQ-001,The BMS shall monitor individual cell voltages across all series-connected cells within the battery pack.,System Specification,STK-REQ-001,BMS-F-004,Monitoring,ASIL C,Test,Draft
+BMS-REQ-002,The BMS shall monitor battery module and coolant temperatures across defined thermal zones.,System Specification,STK-REQ-001,BMS-F-004,Monitoring,ASIL B,Test,Draft
+BMS-REQ-003,The BMS shall calculate the battery State of Charge (SoC) during active and standby states.,System Specification,STK-REQ-002,BMS-F-002,Estimation,QM,Analysis/Test,Draft
+BMS-REQ-004,The BMS shall calculate the battery State of Health (SoH) and persist updated values to non-volatile memory.,System Specification,STK-REQ-002,BMS-F-002,Estimation,QM,Analysis/Test,Draft
+BMS-REQ-005,The BMS shall control high-voltage (HV) main and pre-charge contactors to safely connect and isolate the pack.,Functional Safety Concept,SAF-GOAL-001,BMS-F-006,HV_Management,ASIL D,Test,Draft
+BMS-REQ-006,The BMS shall detect cell overvoltage conditions and trigger a fault reaction within the defined fault-tolerant time interval.,Functional Safety Concept,SAF-GOAL-002,BMS-F-004,Monitoring,ASIL C,Test,Draft
+BMS-REQ-007,The BMS shall calculate and provide dynamic maximum charging current limits to the On-Board Charger (OBC) and VCU.,System Specification,STK-REQ-003,BMS-F-003,Energy_Management,ASIL B,Test,Draft
+BMS-REQ-008,The BMS shall communicate battery status, state estimates, and active fault bitmasks to the Vehicle Control Unit (VCU).,Vehicle Interface Spec,STK-REQ-004,BMS-F-008,Master_Controller,ASIL B,Test,Draft
+BMS-REQ-009,The BMS shall measure bidirectional pack current at a minimum 10 ms acquisition rate.,System Specification,STK-REQ-001,BMS-F-004,Monitoring,ASIL C,Test,Draft
+BMS-REQ-010,The BMS shall execute a controlled DC-link pre-charge sequence before closing the main positive contactor.,System Specification,STK-REQ-005,BMS-F-006,HV_Management,ASIL B,Test,Draft
+BMS-REQ-011,The BMS shall verify High-Voltage Interlock Loop (HVIL) continuity and insulation resistance prior to HV bus energization.,Functional Safety Concept,SAF-GOAL-001,BMS-F-006,HV_Management,ASIL C,Test,Draft
+BMS-REQ-012,The BMS shall equalize cell voltages through controlled cell balancing during charging and standby modes.,System Specification,STK-REQ-003,BMS-F-003,Energy_Management,QM,Test,Draft
+BMS-REQ-013,The BMS shall calculate dynamic maximum discharge current limits based on SoC, temperature, and minimum cell voltage.,System Specification,STK-REQ-003,BMS-F-003,Energy_Management,ASIL B,Test,Draft
+BMS-REQ-014,The BMS shall detect cell undervoltage conditions and derate or isolate discharge current to prevent deep discharge.,Functional Safety Concept,SAF-GOAL-002,BMS-F-004,Monitoring,ASIL B,Test,Draft
+BMS-REQ-015,The BMS shall detect battery overtemperature conditions, apply progressive thermal derating, and isolate HV on critical thresholds.,Functional Safety Concept,SAF-GOAL-003,BMS-F-007,Diagnostics,ASIL C,Test,Draft
+BMS-REQ-016,The BMS shall debounce raw fault flags, log confirmed Diagnostic Trouble Codes (DTCs), and coordinate power derating.,System Specification,STK-REQ-006,BMS-F-007,Diagnostics,ASIL B,Test,Draft
+BMS-REQ-017,The BMS shall detect loss of CAN communication with the VCU and transition to a safe isolated state,Functional Safety Concept,SAF-GOAL-004,BMS-F-001,Master_Controller,ASIL B,Test,Draft
+BMS-REQ-018,The BMS shall detect welded or stuck HV contactors via physical feedback and inhibit further HV activation.,Functional Safety Concept,SAF-GOAL-001,BMS-F-006,HV_Management,ASIL D,Test,Draft
+BMS-REQ-019,The BMS shall coordinate startup self-tests, operational state transitions, and zero-current controlled shutdown.,System Specification,STK-REQ-005,BMS-F-001,Master_Controller,ASIL B,Test,Draft
+BMS-REQ-020,The BMS shall isolate the HV battery pack within 20 ms upon receiving a critical emergency open request.,Functional Safety Concept,SAF-GOAL-002,BMS-F-006,HV_Management,ASIL D,Test,Draft
