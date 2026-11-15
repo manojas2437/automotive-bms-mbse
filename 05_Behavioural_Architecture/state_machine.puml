@@ -1,0 +1,32 @@
+@startuml
+title BMS Operational State Machine
+
+[*] --> Initialization
+
+Initialization --> SelfTest : Initialization complete
+
+SelfTest --> Standby : Self-test passed
+SelfTest --> Fault : Self-test failed
+
+Standby --> Precharge : HV enable request
+
+Precharge --> Operating : Precharge successful
+Precharge --> Fault : Precharge failure
+
+Operating --> Charging : Charging request
+Operating --> Discharging : Drive request
+
+Charging --> Operating : Charging stopped
+Discharging --> Operating : Drive stopped
+
+Operating --> Standby : Shutdown request
+
+Charging --> Fault : Critical fault
+Discharging --> Fault : Critical fault
+Operating --> Fault : Critical fault
+
+Fault --> Standby : Recovery conditions satisfied
+
+Standby --> [*] : Power down
+
+@enduml

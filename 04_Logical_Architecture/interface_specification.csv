@@ -1,0 +1,21 @@
+Interface_ID,Source_Component,Destination_Component,Signal_Name,Data_Type,Unit,Communication_Protocol,Update_Rate,Timeout,Error_Handling
+IF-001,Monitoring,Estimation,CellVoltage,Float[],V,Internal,10 ms,30 ms,Flag signal invalid and hold last valid value; trigger diagnostic fault
+IF-002,Monitoring,Estimation,CellTemperature,Float[],°C,Internal,100 ms,300 ms,Substitute worst-case max/min temperature and flag sensor fault
+IF-003,Monitoring,Estimation,PackCurrent,Float,A,Internal,10 ms,30 ms,Freeze coulomb counting; switch to voltage-based estimation fallback
+IF-004,Monitoring,HV_Management,PackVoltage,Float,V,Internal,10 ms,30 ms,Inhibit contactor closure; evaluate safe-open threshold
+IF-005,Monitoring,Diagnostics,SensorPlausibilityStatus,Enum,N/A,Internal,10 ms,30 ms,Increment debounce counter; log DTC on confirmation
+IF-006,Estimation,Energy_Management,BatterySoC,Float,%,Internal,100 ms,500 ms,Mark SoC confidence degraded; apply conservative power derating
+IF-007,Estimation,Energy_Management,BatterySoH,Float,%,Internal,1000 ms,5000 ms,Retain last stored non-volatile SoH value and raise warning flag
+IF-008,Estimation,Master_Controller,BatterySoC,Float,%,CAN,100 ms,500 ms,Transmit SNA (Signal Not Available) value on CAN bus
+IF-009,Estimation,Diagnostics,EstimationConfidenceFlag,Boolean,N/A,Internal,100 ms,500 ms,Log estimation convergence fault; notify Energy Management
+IF-010,Energy_Management,Master_Controller,MaxChargeCurrent,Float,A,CAN,50 ms,150 ms,Derate MaxChargeCurrent to 0 A on timeout or fault
+IF-011,Energy_Management,Master_Controller,MaxDischargeCurrent,Float,A,CAN,50 ms,150 ms,Derate MaxDischargeCurrent to 0 A on timeout or fault
+IF-012,Energy_Management,Monitoring,CellBalancingCommand,Boolean[],N/A,Internal,500 ms,1500 ms,Disable all balancing switches immediately to prevent over-discharge
+IF-013,HV_Management,Master_Controller,ContactorState,Enum,N/A,Internal,10 ms,30 ms,Assume unknown contactor state; enter safe state and report fault
+IF-014,HV_Management,Master_Controller,HVILStatus,Boolean,N/A,Internal,10 ms,30 ms,Initiate immediate controlled contactor opening on open-loop detection
+IF-015,HV_Management,Diagnostics,InsulationResistance,Float,kOhm,Internal,500 ms,1500 ms,Trigger isolation fault warning or critical disconnect per threshold
+IF-016,Master_Controller,HV_Management,ContactorControlRequest,Enum,N/A,Internal,10 ms,30 ms,Default to Open state; abort pre-charge sequence if active
+IF-017,Master_Controller,Energy_Management,OperatingMode,Enum,N/A,Internal,20 ms,60 ms,Transition to Standby mode and set power limits to zero
+IF-018,Diagnostics,Energy_Management,DeratingFactor,Float,%,Internal,50 ms,150 ms,Apply maximum safety derating (0% allowed power) on communication loss
+IF-019,Diagnostics,Master_Controller,BatteryFaultStatus,Integer,N/A,CAN,50 ms,150 ms,Set critical fault bitmask; broadcast active DTC summary
+IF-020,Diagnostics,HV_Management,EmergencyOpenRequest,Boolean,N/A,Internal,10 ms,20 ms,Fail-safe active-low/watchdog trigger; open main contactors immediately

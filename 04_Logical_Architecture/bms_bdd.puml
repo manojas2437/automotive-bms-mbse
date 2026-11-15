@@ -1,0 +1,53 @@
+
+@startuml
+title BMS Logical Architecture - BDD Style
+
+skinparam componentStyle rectangle
+
+package "Battery Management System" {
+
+  package "Monitoring Subsystem" {
+    component "Cell Monitoring Unit" as CMU
+    component "Temperature Monitoring Unit" as TMU
+    component "Current Monitoring Unit" as IMU
+  }
+
+  package "Battery Estimation Subsystem" {
+    component "SoC Estimation" as SOC
+    component "SoH Estimation" as SOH
+    component "SoP Estimation" as SOP
+  }
+
+  package "Battery Control Subsystem" {
+    component "Energy Management" as EM
+    component "Thermal Management" as THM
+    component "Cell Balancing" as BAL
+    component "HV Management" as HVM
+  }
+
+  package "Diagnostics and Communication" {
+    component "Diagnostic Manager" as DM
+    component "Communication Manager" as COM
+  }
+
+  component "Master BMS Controller" as MASTER
+}
+
+CMU --> MASTER
+TMU --> MASTER
+IMU --> MASTER
+
+MASTER --> SOC
+MASTER --> SOH
+MASTER --> SOP
+
+SOC --> EM
+SOP --> EM
+EM --> HVM
+
+MASTER --> THM
+MASTER --> BAL
+MASTER --> DM
+MASTER --> COM
+
+@enduml

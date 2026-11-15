@@ -1,0 +1,37 @@
+
+@startuml
+title BMS Internal Interface Architecture - IBD Style
+
+skinparam componentStyle rectangle
+
+component "Cell Monitoring Unit" as CMU
+component "Temperature Monitoring" as TMU
+component "Current Monitoring" as IMU
+
+component "Master BMS Controller" as MASTER
+
+component "State Estimation" as EST
+component "Energy Management" as EM
+component "HV Management" as HV
+component "Diagnostic Manager" as DIAG
+component "Communication Manager" as COM
+
+component "VCU" as VCU
+component "OBC" as OBC
+
+CMU --> MASTER : Cell Voltage
+TMU --> MASTER : Temperature
+IMU --> MASTER : Pack Current
+
+MASTER --> EST : Battery Measurements
+EST --> EM : SoC / SoH / SoP
+
+EM --> HV : Power Limits\nEnable Conditions
+
+MASTER --> DIAG : Fault Information
+DIAG --> COM : DTC / Fault Status
+
+COM --> VCU : Battery Status
+COM --> OBC : Charging Limits
+
+@enduml

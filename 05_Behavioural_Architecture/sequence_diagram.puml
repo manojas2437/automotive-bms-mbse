@@ -1,0 +1,36 @@
+
+@startuml
+title EV Battery Charging - Sequence Diagram
+
+actor Driver
+participant VCU
+participant BMS
+participant "Cell Monitoring Unit" as CMU
+participant "State Estimation" as EST
+participant OBC
+
+Driver -> VCU : Request charging
+
+VCU -> BMS : Charging request
+
+BMS -> CMU : Read cell measurements
+CMU --> BMS : Voltage and temperature
+
+BMS -> EST : Calculate battery state
+EST --> BMS : SoC / SoH / SoP
+
+BMS -> BMS : Validate battery conditions
+
+alt Battery conditions valid
+  BMS -> OBC : Send charging limits
+  OBC --> BMS : Charging status
+  loop Continuous monitoring
+    BMS -> CMU : Read measurements
+    CMU --> BMS : Updated measurements
+    BMS -> BMS : Evaluate charging limits
+  end
+else Battery conditions invalid
+  BMS --> VCU : Charging inhibited
+end
+
+@enduml
