@@ -1,0 +1,51 @@
+@startuml
+title Automotive BMS - System Use Cases
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Driver" as Driver
+actor "Technician" as Tech
+
+actor "Vehicle Control Unit\n(VCU)" as VCU <<System>>
+actor "On-Board Charger\n(OBC)" as OBC <<System>>
+actor "Thermal Management\nController (TMS)" as TMS <<System>>
+
+rectangle "Battery Management System (BMS)" {
+    usecase "UC-01: Startup & Pre-Charge\nHV System" as UC1
+    usecase "UC-02: Monitor Cell Voltage,\nTemperature & Current" as UC2
+    usecase "UC-03: Estimate SoC, SoH &\nPower Limits (SoP)" as UC3
+    usecase "UC-04: Manage Battery\nDischarging (Propulsion)" as UC4
+    usecase "UC-05: Manage Battery\nCharging & Cell Balancing" as UC5
+    usecase "UC-06: Request Thermal\nConditioning" as UC6
+    usecase "UC-07: Detect Faults &\nEnforce Safe State" as UC7
+    usecase "UC-08: Controlled Shutdown\n& Data Persistence" as UC8
+    usecase "UC-09: Read Diagnostics,\nDTCs & Service Routines" as UC9
+}
+
+' Human Actor Associations
+Driver --> VCU : Operates Vehicle\n(Drive / Charge / Key Off)
+Tech --> UC9 : Connects Diagnostic\nTester (UDS)
+
+' VCU Interactions
+VCU --> UC1 : Requests HV Enable
+VCU <-- UC3 : Receives SoC, SoH, SoP
+VCU <--> UC4 : Coordinates Discharge Limits
+VCU <--> UC5 : Authorizes Charging Mode
+VCU <-- UC7 : Receives Fault Status
+VCU --> UC8 : Requests HV Disable / Shutdown
+
+' OBC & TMS Interactions
+OBC <--> UC5 : Receives Charge Limits &\nDelivers Charge Current
+TMS <--> UC6 : Executes Cooling / Heating\nRequests
+
+' Internal Include / Extend Relationships
+UC1 ..> UC2 : <<include>>
+UC4 ..> UC2 : <<include>>
+UC4 ..> UC3 : <<include>>
+UC5 ..> UC2 : <<include>>
+UC5 ..> UC3 : <<include>>
+UC6 ..> UC2 : <<include>>
+UC7 ..> UC2 : <<extend>>\n[Threshold / Fault Violated]
+
+@enduml
