@@ -1,0 +1,11 @@
+Cybersecurity_Req_ID,Related_TARA,Requirement,Allocated_Component,Security_Property,Verification
+CS-REQ-001,TARA-001,BMS shall verify firmware authenticity using asymmetric cryptographic signature validation before execution.,Secure Boot,Authenticity,Security Test
+CS-REQ-002,TARA-001,BMS shall protect firmware integrity in non-volatile memory and abort startup if signature verification fails.,Secure Boot,Integrity,Security Test
+CS-REQ-003,TARA-002,BMS shall authenticate authorized diagnostic access using challenge-response or certificate-based authentication prior to enabling privileged UDS services.,Diagnostic Manager,Access Control / Authenticity,Security Test
+CS-REQ-004,TARA-004,BMS shall store and process all private and symmetric cryptographic keys inside an isolated Hardware Security Module without plaintext export.,Hardware Security Module,Confidentiality / Integrity,Security Analysis
+CS-REQ-005,TARA-003,BMS shall detect invalid, tampered, or replayed protected CAN messages using Message Authentication Codes and monotonic freshness counters.,Communication Manager,Integrity / Freshness,Security Test
+CS-REQ-006,TARA-007,BMS shall verify digital signatures and anti-rollback version counters of software update packages prior to installation.,Update Manager,Authenticity / Integrity,Security Test
+CS-REQ-007,TARA-005,BMS shall verify the cryptographic signature of battery calibration data blocks at startup and restrict calibration writes to authenticated diagnostic sessions.,Secure Boot / Diagnostic Manager,Integrity / Access Control,Security Test
+CS-REQ-008,TARA-001,BMS shall permanently lock or cryptographically authenticate physical hardware debug interfaces (JTAG/SWD) prior to series production deployment.,Master MCU Hardware,Access Control,Security Inspection / Test
+CS-REQ-009,TARA-006,BMS shall isolate safety-critical CAN reception buffers and transition to a defined safe state upon sustained communication loss caused by bus flooding.,Communication Manager,Availability,Security Test / HIL
+CS-REQ-010,TARA-002,BMS shall log security-relevant events (failed authentication attempts, rejected firmware updates, invalid MAC bursts) to tamper-evident non-volatile memory.,Diagnostic Manager / HSM,Non-Repudiation / Accountability,Security Test
